@@ -1,5 +1,3 @@
-**Please download and save the file as saac03guide.html and open it in a web browser. 
-Note: Please do not make any changes to the code else it will not work as expected. We will soon provide the pdf version of it.**
 ====================================================================================================================================
 Full Guide feature:
 ====================================================================================================================================
@@ -26,3 +24,4 @@ Full Guide feature:
 21. All questions are prepared and verified by the senior cloud experts.
 22. If you have any comments on the questions and to purchase a copy of full version of 200 fresh questions at a nominal price of INR 499 only, please contact: awssaac03guide@gmail.com
 =====================================================================================================================================
+Note: Please do not make any changes to the code else it will not work as expected. We will soon provide the pdf version of it
