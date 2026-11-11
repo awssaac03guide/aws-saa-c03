@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS SAA-C03 - Scenario Practice Guide (Set 26)</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#1b2333;--mut:#5b6678;--line:#dde3ec;--brand:#232f3e;--acc:#ff9900;--ok:#1f9d55;--okbg:#e8f7ee;--bad:#d64545;--badbg:#fdecec;--miss:#c98400;--tech:#eef4ff;--techb:#3d6fd8;--tip:#fff6e5;--tipb:#e59400}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.hero{background:linear-gradient(120deg,#232f3e,#37475a);color:#fff;padding:26px 24px 18px}
+.hero h1{margin:0 0 4px;font-size:24px}.hero p{margin:0;color:#c9d3e0}.hero .acc{color:var(--acc)}
+.bar{position:sticky;top:0;z-index:10;background:var(--brand);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding:0 12px}
+.tabs button{flex:0 0 auto;background:none;border:0;border-bottom:3px solid transparent;color:#c9d3e0;padding:12px 14px;font:600 14px system-ui,sans-serif;cursor:pointer}
+.tabs button small{background:#ffffff22;border-radius:9px;padding:1px 7px;margin-left:4px;font-weight:500}
+.tabs button[aria-selected="true"]{color:#fff;border-bottom-color:var(--acc)}
+.tabs button:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.tools{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:8px 16px;background:#2c3a4d;color:#dfe6ef;font-size:13px}
+.tools input[type=search]{flex:1 1 220px;max-width:340px;padding:6px 10px;border-radius:6px;border:1px solid #4b5c73;background:#1f2a38;color:#fff}
+.tools label{display:flex;gap:5px;align-items:center;cursor:pointer}
+.tools .count{margin-left:auto;color:#aab6c6}
+.bar.ov .tools{display:none}
+main{max-width:1000px;margin:0 auto;padding:18px 14px 40px}
+.phead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin:4px 2px 12px}
+.phead h2{margin:0;font-size:20px}.score{color:var(--mut);font-size:13px}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:0 0 16px;box-shadow:0 1px 2px rgba(20,30,50,.05);scroll-margin-top:110px}
+.qcard.hide{display:none}
+.qhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.qhead h3{margin:0;font-size:16px;flex:1 1 auto}
+.qnum{background:var(--brand);color:#fff;font-weight:700;border-radius:6px;padding:2px 8px;font-size:13px}
+.badge{font-size:12px;font-weight:600;border-radius:12px;padding:2px 10px;white-space:nowrap}
+.b-single{background:#eef1f6;color:#4a5568}.b-multi{background:#fff1d6;color:#8a5300;border:1px solid #f5c76b}
+.scenario p{margin:0 0 8px}
+.ask{font-weight:600;margin:8px 0}
+.opts{list-style:none;padding:0;margin:0 0 10px}
+.opts li{border:1px solid var(--line);border-radius:8px;margin:6px 0}
+.opts label{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;cursor:pointer}
+.opts input{margin-top:4px;flex:0 0 auto}
+.ok{font-weight:700;min-width:16px;white-space:nowrap}.ot{flex:1;min-width:0;overflow-wrap:anywhere}
+.scenario,.speech-text,.kw span{overflow-wrap:anywhere}
+.opts li:hover{border-color:#b8c3d4}
+.qcard.done .opts li[data-c]{background:var(--okbg);border-color:var(--ok)}
+.qcard.done .opts li[data-c] .ok::after{content:" \2713";color:var(--ok)}
+.qcard.done .opts li.picked:not([data-c]){background:var(--badbg);border-color:var(--bad)}
+.qcard.done .opts li.picked:not([data-c]) .ok::after{content:" \2717";color:var(--bad)}
+.qcard.done.checked .opts li[data-c]:not(.picked){outline:2px dashed var(--miss);outline-offset:-2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:6px;padding:7px 14px;font:600 13px system-ui,sans-serif;cursor:pointer}
+.btn:hover{filter:brightness(1.15)}.btn.ghost{background:#eef1f6;color:var(--ink)}
+.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.verdict{font-weight:700;font-size:14px}.verdict.good{color:var(--ok)}.verdict.bad{color:var(--bad)}.verdict.warn{color:var(--miss)}
+.explain{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+.qcard.done .explain{display:block}
+.answer-line{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:10px}
+.trap{color:var(--mut)}
+.speech{background:#f2f0fb;border-left:4px solid #6c55c9;border-radius:8px;padding:10px 14px;margin-bottom:12px}
+.speech-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn.play{background:#6c55c9;min-width:150px}.btn.play.on{background:#c47f00}.btn.play.paused{background:var(--ok)}
+.btn[hidden]{display:none}
+.speech-text span.now{background:#ffe9a8;border-radius:3px;box-shadow:0 0 0 2px #ffe9a8}
+.dur{color:var(--mut);font-size:12px}
+.speech-text{margin:8px 0 0}
+.boxes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:0 0 14px}
+.boxes .box{margin:0}
+.box h4{margin:0 0 6px;font-size:14px}.box p{margin:0}.box ol{margin:4px 0 0;padding-left:20px}.box li{margin:3px 0}
+.box.tech{background:var(--tech);border-left:4px solid var(--techb)}
+.box.tip{background:var(--tip);border-left:4px solid var(--tipb)}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.kw span{background:#fff;border:1px solid #bcd0f5;border-radius:12px;padding:1px 9px;font-size:12px}
+.grid{display:grid;gap:12px;margin-bottom:14px}.grid.two{grid-template-columns:1fr 1fr}.grid.two .box{margin:0}
+.stats{grid-template-columns:repeat(4,1fr)}
+.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.stat b{display:block;font-size:26px;color:var(--brand)}.stat span{color:var(--mut);font-size:13px}
+.five{grid-template-columns:repeat(5,1fr);margin:6px 0 0}
+.five div{background:#f7f9fc;border-radius:6px;padding:8px;font-size:13px}.five b{display:block}.five span{color:var(--mut)}
+table{border-collapse:collapse;width:100%}
+.dtable{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:14px}
+.dtable th,.dtable td,.mini th,.mini td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+.dtable a{color:var(--techb);font-weight:600;text-decoration:none}
+.mini td:first-child{font-weight:600;width:38%}
+.traps td:first-child{font-weight:600}.traps td:nth-child(2){color:var(--ok)}.traps td:nth-child(3){color:var(--bad)}
+.empty{display:none;text-align:center;color:var(--mut);padding:30px}
+.panel.none .empty{display:block}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:20px}
+@media (max-width:760px){.boxes,.grid.two,.five{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.tools .count{margin-left:0}}
+@media print{
+  .bar,.actions,.speech-head .btn,.empty{display:none!important}
+  body{background:#fff}.hero{background:#fff;color:#000;padding:0 0 10px}.hero p{color:#333}
+  .panel[hidden]{display:block!important}.qcard.hide{display:block!important}
+  .explain{display:block!important}
+  .opts li[data-c]{background:var(--okbg)!important;border-color:var(--ok)!important}
+  .qcard,.box{break-inside:avoid;box-shadow:none}
+  .panel{break-before:page}#ov{break-before:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>AWS SAA-C03 <span class="acc">Scenario Practice Guide</span> &mdash; Set 26</h1>
+  <p>4 exam-difficulty scenario questions &middot; 1 multiple-response (25%) &middot; review technique, pro tip and ~45-second spoken explanation for every question</p>
+</header>
+<nav class="bar ov">
+  <div class="tabs" role="tablist" aria-label="Guide sections">
+      <button role="tab" id="t-ov" aria-controls="ov" aria-selected="true" data-tab="ov">Overview</button>
+      <button role="tab" id="t-d1" aria-controls="d1" aria-selected="false" data-tab="d1">D1 &middot; Secure <small>1</small></button>
+      <button role="tab" id="t-d2" aria-controls="d2" aria-selected="false" data-tab="d2">D2 &middot; Resilient <small>1</small></button>
+      <button role="tab" id="t-d3" aria-controls="d3" aria-selected="false" data-tab="d3">D3 &middot; High-Performing <small>1</small></button>
+      <button role="tab" id="t-d4" aria-controls="d4" aria-selected="false" data-tab="d4">D4 &middot; Cost-Optimized <small>1</small></button>
+  </div>
+  <div class="tools">
+    <input type="search" id="q" placeholder="Search this domain (text or q57)" aria-label="Search questions">
+    <label><input type="checkbox" id="monly"> Multi-response only</label>
+    <label><input type="checkbox" id="rall"> Reveal all answers</label>
+    <span class="count" id="cnt"></span>
+  </div>
+</nav>
+<main>
+
+  <section role="tabpanel" id="ov" aria-labelledby="t-ov" class="panel">
+    <div class="grid stats">
+      <div class="stat"><b>4</b><span>scenario questions</span></div>
+      <div class="stat"><b>1</b><span>multiple-response, choose two (25%)</span></div>
+      <div class="stat"><b>3</b><span>single answer</span></div>
+      <div class="stat"><b>~45s</b><span>spoken explanation each</span></div>
+    </div>
+    <table class="dtable">
+      <thead><tr><th>Domain</th><th>Exam weight</th><th>Questions</th><th>Multi-response</th></tr></thead>
+      <tbody><tr><td><a href="#d1" data-go="d1">D1 &mdash; Secure Architectures</a></td><td>30%</td><td>1</td><td>0 (0%)</td></tr><tr><td><a href="#d2" data-go="d2">D2 &mdash; Resilient Architectures</a></td><td>26%</td><td>1</td><td>0 (0%)</td></tr><tr><td><a href="#d3" data-go="d3">D3 &mdash; High-Performing Architectures</a></td><td>24%</td><td>1</td><td>1 (100%)</td></tr><tr><td><a href="#d4" data-go="d4">D4 &mdash; Cost-Optimized Architectures</a></td><td>20%</td><td>1</td><td>0 (0%)</td></tr></tbody>
+    </table>
+
+    <div class="grid two">
+      <section class="box tech"><h4>How to use this guide</h4>
+        <ol>
+          <li>Open a domain tab. Read the scenario, pick your option(s), then press <b>Check answer</b>.</li>
+          <li>Press <b>&#9654; Play explanation</b> for the walkthrough at normal 1x speed. The button changes to <b>Pause</b>, then <b>Resume</b>; a separate <b>Stop</b> button resets playback. Resume restarts the highlighted sentence.</li>
+          <li>Timing is approximate (~45 seconds) and varies by your browser voice. Read the <b>review technique</b> and <b>pro tip</b>, then classify any miss (A-E below).</li>
+          <li>Use <b>Multi-response only</b> to drill combination questions; use <b>Reveal all</b> for fast revision.</li>
+        </ol></section>
+      <section class="box tip"><h4>Universal method: R-C-A-E</h4>
+        <ol>
+          <li><b>Requirement</b> &mdash; what outcome is being bought (HA, DR, latency, cost, compliance)?</li>
+          <li><b>Constraint</b> &mdash; the qualifier that decides it: LEAST overhead, no code change, RPO/RTO, private only, cost.</li>
+          <li><b>Architecture</b> &mdash; name the pattern before reading the options.</li>
+          <li><b>Eliminate</b> &mdash; strike options that break any one constraint; compare the last two only on the deciding constraint.</li>
+        </ol></section>
+    </div>
+
+    <div class="grid two">
+      <section class="box"><h4>Qualifier decoder</h4>
+        <table class="mini"><tbody>
+          <tr><td>LEAST operational overhead</td><td>Managed or serverless feature over self-built (EC2 scripts, cron, custom code)</td></tr>
+          <tr><td>LEAST development effort / no code changes</td><td>Configuration-level fixes: Multi-AZ, RDS Proxy, CloudFront, endpoints, lifecycle rules</td></tr>
+          <tr><td>MOST cost-effective</td><td>Cheapest option that still meets every stated requirement, not the cheapest overall</td></tr>
+          <tr><td>Near real time / milliseconds</td><td>Rules out batch, polling, Athena-on-S3 and daily jobs</td></tr>
+          <tr><td>Must not traverse the internet</td><td>VPC endpoints, PrivateLink, Direct Connect; not NAT gateways</td></tr>
+          <tr><td>RPO / RTO numbers</td><td>RPO limits data loss; RTO limits recovery time. Check replication lag and recovery steps separately: fast replication alone does not guarantee fast failover.</td></tr>
+        </tbody></table></section>
+      <section class="box"><h4>Multi-response technique</h4>
+        <ol>
+          <li>List each requirement separately; each correct option usually satisfies one of them.</li>
+          <li>Judge every option as true/false on its own, then pick exactly two. Each multi-response item here is choose two from five options.</li>
+          <li>Two options that do the same job are rarely both correct; two halves of one mechanism (create + attach, enable + configure) often are.</li>
+          <li>Drop any option that adds a new single point of failure or violates the overhead/cost qualifier.</li>
+        </ol></section>
+    </div>
+
+    <section class="box"><h4>Classify every miss</h4>
+      <div class="grid five">
+        <div><b>A. Service knowledge</b><span>You did not know what the service does.</span></div>
+        <div><b>B. Requirement</b><span>You misread what the scenario asked for.</span></div>
+        <div><b>C. Trap pair</b><span>You knew both services but swapped their use cases.</span></div>
+        <div><b>D. Constraint</b><span>You ignored LEAST overhead, no code changes, downtime limits.</span></div>
+        <div><b>E. Exam reading</b><span>You knew it but picked a plausible distractor.</span></div>
+      </div></section>
+
+    <section class="box"><h4>High-value trap pairs (43)</h4>
+      <table class="mini traps"><thead><tr><th>Scenario clue</th><th>Best first thought</th><th>Common trap</th></tr></thead>
+      <tbody><tr><td>AZ failure</td><td>Multi-AZ</td><td>Read Replica</td></tr><tr><td>Read bottleneck</td><td>Read Replica</td><td>Multi-AZ</td></tr><tr><td>Region failure</td><td>Multi-Region DR</td><td>Multi-AZ</td></tr><tr><td>Bursty asynchronous work</td><td>SQS</td><td>SNS</td></tr><tr><td>One event, many consumers</td><td>SNS/EventBridge</td><td>SQS-only</td></tr><tr><td>Pattern-based event routing</td><td>EventBridge</td><td>SNS</td></tr><tr><td>Workforce SSO</td><td>IAM Identity Center</td><td>Cognito</td></tr><tr><td>Customer login</td><td>Cognito</td><td>IAM Identity Center</td></tr><tr><td>Secret rotation</td><td>Secrets Manager</td><td>Parameter Store</td></tr><tr><td>Configuration parameters</td><td>Parameter Store</td><td>Secrets Manager</td></tr><tr><td>HTTP attack protection</td><td>WAF</td><td>Shield</td></tr><tr><td>DDoS protection</td><td>Shield</td><td>WAF</td></tr><tr><td>AWS threat detection</td><td>GuardDuty</td><td>Macie</td></tr><tr><td>Sensitive data discovery</td><td>Macie</td><td>GuardDuty</td></tr><tr><td>API audit</td><td>CloudTrail</td><td>CloudWatch</td></tr><tr><td>Network flow metadata</td><td>VPC Flow Logs</td><td>CloudTrail</td></tr><tr><td>Organization restriction</td><td>SCP</td><td>IAM policy</td></tr><tr><td>Maximum permission ceiling</td><td>Permissions boundary</td><td>SCP</td></tr><tr><td>Stateful network filtering</td><td>Security Group</td><td>NACL</td></tr><tr><td>Stateless subnet filtering</td><td>NACL</td><td>Security Group</td></tr><tr><td>Private S3 access</td><td>Gateway endpoint</td><td>NAT Gateway</td></tr><tr><td>Private AWS API access</td><td>Interface endpoint</td><td>NAT Gateway</td></tr><tr><td>Private subnet → internet</td><td>NAT Gateway</td><td>Internet Gateway</td></tr><tr><td>Static global content</td><td>CloudFront</td><td>Global Accelerator</td></tr><tr><td>Global TCP/UDP acceleration</td><td>Global Accelerator</td><td>CloudFront</td></tr><tr><td>Shared file system</td><td>EFS</td><td>EBS</td></tr><tr><td>Block storage</td><td>EBS</td><td>EFS</td></tr><tr><td>Object storage</td><td>S3</td><td>EBS</td></tr><tr><td>Kubernetes</td><td>EKS</td><td>ECS</td></tr><tr><td>Containers without servers</td><td>Fargate</td><td>EC2</td></tr><tr><td>Event-driven short computation</td><td>Lambda</td><td>EC2</td></tr><tr><td>Repeated RDS reads</td><td>ElastiCache</td><td>Read Replica</td></tr><tr><td>DynamoDB low-latency cache</td><td>DAX</td><td>ElastiCache</td></tr><tr><td>Durable queue</td><td>SQS</td><td>SNS</td></tr><tr><td>Workflow orchestration</td><td>Step Functions</td><td>SQS</td></tr><tr><td>Long-term archive</td><td>Glacier</td><td>S3 Standard</td></tr><tr><td>Unpredictable S3 access</td><td>Intelligent-Tiering</td><td>Standard</td></tr><tr><td>Stable compute</td><td>Savings Plans/RI</td><td>Spot</td></tr><tr><td>Interruptible compute</td><td>Spot</td><td>Savings Plans</td></tr><tr><td>Relaxed DR</td><td>Backup/Restore</td><td>Warm Standby</td></tr><tr><td>Minutes-level recovery</td><td>Warm Standby</td><td>Backup/Restore</td></tr><tr><td>Minimal running DR</td><td>Pilot Light</td><td>Warm Standby</td></tr><tr><td>Near-zero downtime</td><td>Active-Active</td><td>Pilot Light</td></tr></tbody></table></section>
+    <section class="box"><h4>Official references</h4>
+      <p><a href="https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html" target="_blank" rel="noopener noreferrer">AWS SAA-C03 exam guide</a> &middot;
+      <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-create-vpc.html" target="_blank" rel="noopener noreferrer">Systems Manager VPC endpoint requirements</a>.</p>
+      <p>These are original practice questions, not actual exam questions. The 30% multi-response mix (all choose two from five options) is set for this practice bank; AWS does not publish a fixed multi-response quota.</p>
+    </section>
+  </section>
+
+  <section role="tabpanel" id="d1" aria-labelledby="t-d1" class="panel" hidden>
+    <div class="phead"><h2>Domain 1 &mdash; Secure Architectures</h2><span class="score" data-total="1">0 / 1 answered &middot; 0 correct</span></div>
+    
+  <article class="qcard" id="q59" data-n="59" data-m="0" data-ans="D">
+    <header class="qhead">
+      <span class="qnum">Q59</span>
+      <h3>Certificate-only access for field devices</h3>
+      <span class="badge b-single">Single answer</span>
+    </header>
+    <div class="scenario"><p>A utility company has 6,000 field devices that send readings to an HTTPS API behind an internet-facing Application Load Balancer, which routes by path to Amazon ECS services and is protected by an AWS WAF web ACL. Each device holds an X.509 client certificate issued by the company private certificate authority, and the security team publishes a certificate revocation list every day. Security now requires that any connection without a valid, unrevoked certificate from that authority is rejected before a request reaches a container. The application team will not add certificate-validation code, but it can read a request header to map the certificate subject to a device ID. The ALB, its path routing, and the web ACL must stay.</p></div>
+    <p class="ask">Which solution meets these requirements?</p>
+    <ol class="opts">
+        <li data-k="A"><label><input type="radio" name="q59" value="A"><span class="ok">A</span><span class="ot">Configure mutual TLS in passthrough mode on the HTTPS listener so that the load balancer forwards the full client certificate chain to the containers in a request header.</span></label></li>
+        <li data-k="B"><label><input type="radio" name="q59" value="B"><span class="ok">B</span><span class="ot">Replace the ALB with a Network Load Balancer that has a TLS listener with an ACM certificate, and enable client certificate checking on the TLS listener for the devices.</span></label></li>
+        <li data-k="C"><label><input type="radio" name="q59" value="C"><span class="ok">C</span><span class="ot">Add an authenticate-cognito action to the HTTPS listener rules that uses an Amazon Cognito user pool with one user for each device and its certificate details stored as attributes.</span></label></li>
+        <li data-k="D" data-c="1"><label><input type="radio" name="q59" value="D"><span class="ok">D</span><span class="ot">Create an ALB trust store from the authority CA bundle and revocation list in Amazon S3, and set the HTTPS listener to mutual TLS verify mode for client certificates.</span></label></li>
+    </ol>
+    <div class="actions">
+      <button type="button" class="btn check">Check answer</button>
+      <button type="button" class="btn ghost reveal">Reveal</button>
+      <button type="button" class="btn ghost reset">Reset</button>
+      <span class="verdict" aria-live="polite"></span>
+    </div>
+    <div class="explain">
+      <div class="answer-line">Correct: <strong>D</strong><span class="trap">Trap pair: Picking mutual TLS passthrough because it also uses client certificates, even though it leaves all verification to the application code.</span></div>
+      <section class="speech">
+        <div class="speech-head">
+          <button type="button" class="btn play" aria-label="Play spoken explanation">&#9654; Play explanation</button>
+          <button type="button" class="btn ghost stop" aria-label="Stop explanation" hidden>&#9632; Stop</button>
+          <span class="dur">~52s at 1x &middot; 129 words</span>
+        </div>
+        <p class="speech-text"><span>Option D is correct.</span> <span>In mutual TLS verify mode the Application Load Balancer authenticates each client certificate against the CA bundle in its trust store and checks the revocation list during the TLS handshake, so untrusted or revoked devices are rejected before any request reaches a container.</span> <span>The load balancer then passes the certificate subject to targets in an X-Amzn-Mtls header for authorization, and path routing and the web ACL stay in place.</span> <span>Option A is wrong because passthrough mode does not verify certificates, so the containers would need validation code.</span> <span>Option B is wrong because a Network Load Balancer does not authenticate client certificates and drops path routing and the web ACL.</span> <span>Option C is wrong because Cognito authentication is an interactive user sign-in flow, not certificate authentication.</span></p>
+      </section>
+      <div class="boxes">
+        <section class="box tech"><h4>Question review technique</h4><p>Underline &quot;rejected before a request reaches a container&quot;, &quot;will not add certificate-validation code&quot;, and &quot;the ALB, its path routing, and the web ACL must stay&quot;. Client certificates plus no code means the load balancer must do the verification itself, which separates verify mode from passthrough mode and rules out replacing the load balancer.</p>
+          <div class="kw"><span>X.509 client certificate from a private authority</span><span>certificate revocation list</span><span>no certificate-validation code</span><span>ALB and web ACL must stay</span></div></section>
+        <section class="box tip"><h4>Pro tip</h4><p>ALB mutual TLS has two modes: verify, where the load balancer authenticates certificates against a trust store with optional revocation checks, and passthrough, where it only forwards the certificate chain. Choose verify mode when the application must not handle certificate validation.</p></section>
+      </div>
+    </div>
+  </article>
+    <p class="empty">No questions match the current filter.</p>
+  </section>
+
+  <section role="tabpanel" id="d2" aria-labelledby="t-d2" class="panel" hidden>
+    <div class="phead"><h2>Domain 2 &mdash; Resilient Architectures</h2><span class="score" data-total="1">0 / 1 answered &middot; 0 correct</span></div>
+    
+  <article class="qcard" id="q85" data-n="85" data-m="0" data-ans="D">
+    <header class="qhead">
+      <span class="qnum">Q85</span>
+      <h3>Gray failure in one Availability Zone</h3>
+      <span class="badge b-single">Single answer</span>
+    </header>
+    <div class="scenario"><p>A retail API runs on EC2 instances in an Auto Scaling group across three Availability Zones behind an Application Load Balancer with cross-zone load balancing enabled. During a recent incident, instances in one zone kept passing their lightweight health checks, but requests served there had 4-second latency and intermittent 5xx errors because of a zone-level network impairment. Engineers spent 50 minutes editing subnets and capacity to drain the zone. The company wants an operator to move traffic away from a single impaired zone within minutes, with no DNS record changes, no redeployment, and no application code changes, and the change must end on its own after a set time. The remaining two zones have enough headroom.</p></div>
+    <p class="ask">Which solution will meet these requirements with the LEAST operational effort?</p>
+    <ol class="opts">
+        <li data-k="A"><label><input type="radio" name="q85" value="A"><span class="ok">A</span><span class="ot">Create Route 53 failover records with health checks that point to a standby copy of the stack in a second AWS Region, and fail over when a zone is impaired.</span></label></li>
+        <li data-k="B"><label><input type="radio" name="q85" value="B"><span class="ok">B</span><span class="ot">Write a runbook that removes the impaired zone subnet from the Auto Scaling group and the load balancer, then adds it back after the provider confirms recovery.</span></label></li>
+        <li data-k="C"><label><input type="radio" name="q85" value="C"><span class="ok">C</span><span class="ot">Change the target group health check to a deep check that calls the database and downstream services, so that targets in a degraded zone are marked unhealthy.</span></label></li>
+        <li data-k="D" data-c="1"><label><input type="radio" name="q85" value="D"><span class="ok">D</span><span class="ot">Enable the load balancer for zonal shift in Amazon Application Recovery Controller, and start a zonal shift with an expiration time for the impaired zone.</span></label></li>
+    </ol>
+    <div class="actions">
+      <button type="button" class="btn check">Check answer</button>
+      <button type="button" class="btn ghost reveal">Reveal</button>
+      <button type="button" class="btn ghost reset">Reset</button>
+      <span class="verdict" aria-live="polite"></span>
+    </div>
+    <div class="explain">
+      <div class="answer-line">Correct: <strong>D</strong><span class="trap">Trap pair: Reaching for deeper health checks or Region failover for a gray failure, when the requirement is a fast, temporary move away from one Availability Zone.</span></div>
+      <section class="speech">
+        <div class="speech-head">
+          <button type="button" class="btn play" aria-label="Play spoken explanation">&#9654; Play explanation</button>
+          <button type="button" class="btn ghost stop" aria-label="Stop explanation" hidden>&#9632; Stop</button>
+          <span class="dur">~52s at 1x &middot; 130 words</span>
+        </div>
+        <p class="speech-text"><span>Option D is correct.</span> <span>A zonal shift in Application Recovery Controller marks one Availability Zone unhealthy for a supported load balancer, so traffic moves to the other zones in minutes without DNS edits, redeployment, or code changes.</span> <span>Every zonal shift must have an expiration, up to three days, so it ends on its own unless an operator extends or cancels it.</span> <span>Option A is wrong because a second Region adds a standby stack and DNS failover for a problem confined to one zone.</span> <span>Option B is wrong because editing subnets is the slow manual process that took 50 minutes, and someone must remember to undo it.</span> <span>Option C is wrong because deep health checks require new endpoint code and can fail every zone at once when a shared dependency fails.</span></p>
+      </section>
+      <div class="boxes">
+        <section class="box tech"><h4>Question review technique</h4><p>Underline &quot;single impaired zone&quot;, &quot;within minutes&quot;, &quot;no DNS record changes, no redeployment, and no application code changes&quot;, and &quot;end on its own after a set time&quot;. A zone-scoped, operator-started, time-limited traffic move is exactly what zonal shift provides, so eliminate Region failover, manual subnet edits, and new health check code.</p>
+          <div class="kw"><span>passing health checks but degraded zone</span><span>move traffic away from one zone in minutes</span><span>no DNS, redeployment, or code changes</span><span>ends after a set time</span></div></section>
+        <section class="box tip"><h4>Pro tip</h4><p>Zonal shift moves traffic away from one Availability Zone for ALBs, NLBs, EC2 Auto Scaling groups, and EKS, and always expires. Zonal autoshift lets AWS start the shift when it detects a zone impairment. A load balancer that is failing open will not shift traffic.</p></section>
+      </div>
+    </div>
+  </article>
+    <p class="empty">No questions match the current filter.</p>
+  </section>
+
+  <section role="tabpanel" id="d3" aria-labelledby="t-d3" class="panel" hidden>
+    <div class="phead"><h2>Domain 3 &mdash; High-Performing Architectures</h2><span class="score" data-total="1">0 / 1 answered &middot; 0 correct</span></div>
+    
+  <article class="qcard" id="q124" data-n="124" data-m="1" data-ans="CE">
+    <header class="qhead">
+      <span class="qnum">Q124</span>
+      <h3>Multi-hop fraud links in a relational database</h3>
+      <span class="badge b-multi">Choose two</span>
+    </header>
+    <div class="scenario"><p>A payments company stores accounts, devices, cards, and IP addresses in Amazon RDS for PostgreSQL. Fraud analysts and a real-time scoring service run recursive queries that find accounts linked through shared devices or cards up to four hops away. Each query now takes 6 to 12 seconds, and the scoring service needs answers in under 100 ms. Read volume is about 15,000 traversals per second and is growing, while writes stay near 500 per second. The team is willing to rewrite only the traversal queries in a graph query language, wants a fully managed service, and needs reads to keep working if one Availability Zone fails.</p></div>
+    <p class="ask">Which combination of steps should a solutions architect recommend? (Choose two.)</p>
+    <ol class="opts">
+        <li data-k="A"><label><input type="checkbox" name="q124" value="A"><span class="ok">A</span><span class="ot">Add five RDS for PostgreSQL read replicas in different Availability Zones and spread the recursive traversal queries across the replicas through a Route 53 weighted record.</span></label></li>
+        <li data-k="B"><label><input type="checkbox" name="q124" value="B"><span class="ok">B</span><span class="ot">Move the relationship data to an Amazon DynamoDB table with an adjacency list design and global secondary indexes, and run each hop as a separate query.</span></label></li>
+        <li data-k="C" data-c="1"><label><input type="checkbox" name="q124" value="C"><span class="ok">C</span><span class="ot">Load the account, device, and card relationships into an Amazon Neptune DB cluster as a property graph, and rewrite the traversals in openCypher.</span></label></li>
+        <li data-k="D"><label><input type="checkbox" name="q124" value="D"><span class="ok">D</span><span class="ot">Scale the RDS instance to the largest memory-optimized class, add composite indexes on every join column, and raise the work_mem parameter for traversal sessions.</span></label></li>
+        <li data-k="E" data-c="1"><label><input type="checkbox" name="q124" value="E"><span class="ok">E</span><span class="ot">Add Neptune read replicas in other Availability Zones and send the traversal queries to the cluster reader endpoint so that reads scale out and survive a zone failure.</span></label></li>
+    </ol>
+    <div class="actions">
+      <button type="button" class="btn check">Check answer</button>
+      <button type="button" class="btn ghost reveal">Reveal</button>
+      <button type="button" class="btn ghost reset">Reset</button>
+      <span class="verdict" aria-live="polite"></span>
+    </div>
+    <div class="explain">
+      <div class="answer-line">Correct: <strong>C, E</strong><span class="trap">Trap pair: Adding relational read replicas or a bigger instance, which raises throughput or headroom but leaves each recursive multi-hop query slow.</span></div>
+      <section class="speech">
+        <div class="speech-head">
+          <button type="button" class="btn play" aria-label="Play spoken explanation">&#9654; Play explanation</button>
+          <button type="button" class="btn ghost stop" aria-label="Stop explanation" hidden>&#9632; Stop</button>
+          <span class="dur">~51s at 1x &middot; 128 words</span>
+        </div>
+        <p class="speech-text"><span>Option C and Option E are correct.</span> <span>Neptune is a managed graph database that stores relationships directly, so a four-hop link search becomes a short openCypher traversal instead of repeated recursive joins, which brings latency into the millisecond range.</span> <span>Neptune read replicas in other Availability Zones share the cluster storage, the reader endpoint spreads traversal load across them, and a replica can take over if the primary zone fails.</span> <span>Option A is wrong because replicas add throughput but each recursive query still takes seconds.</span> <span>Option B is wrong because issuing one query per hop multiplies round trips and fan-out, so four hops cannot meet 100 ms.</span> <span>Option D is wrong because a larger instance and indexes cannot turn multi-second recursive joins into sub-100 ms answers at this volume.</span></p>
+      </section>
+      <div class="boxes">
+        <section class="box tech"><h4>Question review technique</h4><p>Split the problem into per-query latency and read scale. Multi-hop relationship queries that are slow in SQL point to a graph database, which fixes latency. Then look for the step that scales reads and survives a zone failure for that same database, and eliminate options that only scale the relational engine.</p>
+          <div class="kw"><span>linked up to four hops away</span><span>under 100 ms</span><span>15,000 traversals per second</span><span>rewrite only the traversal queries</span></div></section>
+        <section class="box tip"><h4>Pro tip</h4><p>When the question stresses relationships several hops deep, think Amazon Neptune with Gremlin, openCypher, or SPARQL. Scale its reads with up to 15 read replicas behind the reader endpoint, which also provide failover targets.</p></section>
+      </div>
+    </div>
+  </article>
+    <p class="empty">No questions match the current filter.</p>
+  </section>
+
+  <section role="tabpanel" id="d4" aria-labelledby="t-d4" class="panel" hidden>
+    <div class="phead"><h2>Domain 4 &mdash; Cost-Optimized Architectures</h2><span class="score" data-total="1">0 / 1 answered &middot; 0 correct</span></div>
+    
+  <article class="qcard" id="q188" data-n="188" data-m="0" data-ans="C">
+    <header class="qhead">
+      <span class="qnum">Q188</span>
+      <h3>Transit gateway bill from one VPC pair</h3>
+      <span class="badge b-single">Single answer</span>
+    </header>
+    <div class="scenario"><p>A company connects 32 VPCs and its data center through one transit gateway in us-east-1, and every VPC route table sends 10.0.0.0/8 to the transit gateway. A cost review shows about $8,000 per month in transit gateway data processing, almost all from one pair: an analytics VPC (10.20.0.0/16) whose cluster of 300 instances reads about 400 TB per month from many hosts and ports in a data ingestion VPC (10.30.0.0/16). Both VPCs are in the same account, and most of this traffic stays within the same Availability Zones. Neither workload can be redeployed or changed, all other traffic must keep using the transit gateway, and throughput must not be capped.</p></div>
+    <p class="ask">Which solution will reduce this cost MOST effectively?</p>
+    <ol class="opts">
+        <li data-k="A"><label><input type="radio" name="q188" value="A"><span class="ok">A</span><span class="ot">Create an AWS PrivateLink endpoint service behind a Network Load Balancer in the ingestion VPC, and add an interface endpoint in the analytics VPC for the cluster.</span></label></li>
+        <li data-k="B"><label><input type="radio" name="q188" value="B"><span class="ok">B</span><span class="ot">Create a second transit gateway for only the analytics and ingestion VPCs, attach both VPCs to it, and give it its own route table for this traffic pair.</span></label></li>
+        <li data-k="C" data-c="1"><label><input type="radio" name="q188" value="C"><span class="ok">C</span><span class="ot">Create a VPC peering connection between the analytics and ingestion VPCs, and add routes to each peer /16 CIDR, which are more specific than the 10.0.0.0/8 route.</span></label></li>
+        <li data-k="D"><label><input type="radio" name="q188" value="D"><span class="ok">D</span><span class="ot">Share the ingestion VPC subnets with AWS Resource Access Manager and launch the analytics cluster in those shared subnets so that the traffic stays in one VPC.</span></label></li>
+    </ol>
+    <div class="actions">
+      <button type="button" class="btn check">Check answer</button>
+      <button type="button" class="btn ghost reveal">Reveal</button>
+      <button type="button" class="btn ghost reset">Reset</button>
+      <span class="verdict" aria-live="polite"></span>
+    </div>
+    <div class="explain">
+      <div class="answer-line">Correct: <strong>C</strong><span class="trap">Trap pair: Assuming that a dedicated transit gateway or PrivateLink cuts cost, when both still bill for every gigabyte processed.</span></div>
+      <section class="speech">
+        <div class="speech-head">
+          <button type="button" class="btn play" aria-label="Play spoken explanation">&#9654; Play explanation</button>
+          <button type="button" class="btn ghost stop" aria-label="Stop explanation" hidden>&#9632; Stop</button>
+          <span class="dur">~50s at 1x &middot; 126 words</span>
+        </div>
+        <p class="speech-text"><span>Option C is correct.</span> <span>A VPC peering connection has no hourly or data processing charge, and data transfer over it that stays within an Availability Zone is free, so most of the 400 TB costs nothing to move.</span> <span>The /16 peering routes are more specific than the 10.0.0.0/8 route, so only this pair leaves the transit gateway path, and peering has no bandwidth bottleneck.</span> <span>Option A is wrong because PrivateLink also charges per gigabyte processed and exposes services through a load balancer, which does not fit hundreds of hosts and ports.</span> <span>Option B is wrong because a second transit gateway still charges data processing for every gigabyte.</span> <span>Option D is wrong because launching the cluster in shared subnets means redeploying a workload that cannot be moved.</span></p>
+      </section>
+      <div class="boxes">
+        <section class="box tech"><h4>Question review technique</h4><p>Find where the per-gigabyte charge comes from, then look for a path that removes it without breaking a constraint. A heavy flow between two VPCs is the classic case for peering beside a transit gateway, and longest-prefix routing lets you peel off one pair while every other route stays the same.</p>
+          <div class="kw"><span>transit gateway data processing</span><span>400 TB per month between two VPCs</span><span>same Availability Zones</span><span>other traffic must keep using the transit gateway</span></div></section>
+        <section class="box tip"><h4>Pro tip</h4><p>Transit gateways bill per attachment-hour and per gigabyte processed. For one high-volume VPC pair, add VPC peering with more specific routes: there is no hourly charge, and same-AZ traffic over peering is free.</p></section>
+      </div>
+    </div>
+  </article>
+    <p class="empty">No questions match the current filter.</p>
+  </section>
+</main>
+<footer>SAA-C03 Scenario Practice Guide &middot; Set 26 &middot; Domain weights per the current AWS exam guide (30 / 26 / 24 / 20). Practice material, not actual exam questions.</footer>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  var panels=[].slice.call(document.querySelectorAll('[role=tabpanel]'));
+  var bar=document.querySelector('.bar'),q=document.getElementById('q'),mOnly=document.getElementById('monly'),rAll=document.getElementById('rall'),cnt=document.getElementById('cnt');
+  var cur='ov';
+  function show(id,noHash){
+    if(!document.getElementById(id))id='ov';
+    if(st&&id!==cur)stop();
+    cur=id;
+    tabs.forEach(function(t){var on=t.dataset.tab===id;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;});
+    panels.forEach(function(p){p.hidden=p.id!==id;});
+    bar.classList.toggle('ov',id==='ov');
+    if(!noHash)history.replaceState(null,'','#'+id);
+    filter();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.dataset.tab);window.scrollTo(0,0);});
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;
+      var n=tabs[(i+d+tabs.length)%tabs.length];n.focus();n.click();
+    });
+  });
+  document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.go);window.scrollTo(0,0);});});
+  function filter(){
+    var p=document.getElementById(cur);if(cur==='ov')return;
+    var s=q.value.trim().toLowerCase(),m=mOnly.checked,v=0,cards=p.querySelectorAll('.qcard');
+    cards.forEach(function(c){
+      var hit=(!m||c.dataset.m==='1')&&(!s||c.textContent.toLowerCase().indexOf(s)>-1||('q'+c.dataset.n)===s);
+      c.classList.toggle('hide',!hit);if(hit)v++;
+    });
+    if(st&&st.card.classList.contains('hide'))stop();
+    p.classList.toggle('none',v===0);
+    cnt.textContent=v+' of '+cards.length+' shown';
+  }
+  q.addEventListener('input',filter);mOnly.addEventListener('change',filter);
+  rAll.addEventListener('change',function(){
+    document.querySelectorAll('.qcard').forEach(function(c){
+      if(rAll.checked)c.classList.add('done');else if(!c.classList.contains('checked'))c.classList.remove('done');
+    });
+    if(st&&!st.card.classList.contains('done'))stop();
+  });
+  function score(p){
+    var cards=p.querySelectorAll('.qcard'),a=0,ok=0;
+    cards.forEach(function(c){if(c.dataset.res){a++;if(c.dataset.res==='1')ok++;}});
+    p.querySelector('.score').textContent=a+' / '+cards.length+' answered \u00b7 '+ok+' correct';
+  }
+  var synth=window.speechSynthesis,st=null,token=0;
+  var PLAY='\u25b6 Play explanation',PAUSE='\u275a\u275a Pause',RESUME='\u25b6 Resume';
+  function ui(s,state){
+    var p=s.card.querySelector('.play'),x=s.card.querySelector('.stop');
+    p.classList.toggle('on',state==='playing');p.classList.toggle('paused',state==='paused');
+    p.innerHTML=state==='playing'?PAUSE:state==='paused'?RESUME:PLAY;
+    p.setAttribute('aria-label',state==='playing'?'Pause explanation':state==='paused'?'Resume explanation':'Play spoken explanation');
+    x.hidden=state==='idle';
+    s.card.querySelectorAll('.speech-text span').forEach(function(sp,i){sp.classList.toggle('now',state!=='idle'&&i===s.idx);});
+  }
+  function speakFrom(s){
+    var tk=++token;synth.cancel();
+    setTimeout(function(){
+      if(tk!==token)return;
+      for(var j=s.idx;j<s.parts.length;j++)(function(j){
+        var u=new SpeechSynthesisUtterance(s.parts[j]);u.rate=1;u.lang='en-US';
+        u.onstart=function(){if(tk===token){s.idx=j;ui(s,'playing');}};
+        u.onerror=function(){if(tk===token)stop();};
+        if(j===s.parts.length-1)u.onend=function(){if(tk===token)stop();};
+        synth.speak(u);
+      })(j);
+    },60);
+    ui(s,'playing');
+  }
+  function stop(){token++;if(synth)synth.cancel();if(st){var s=st;st=null;s.idx=-1;ui(s,'idle');}}
+  function pause(){token++;synth.cancel();st.paused=true;ui(st,'paused');}
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    var c=b.closest('.qcard');if(!c)return;
+    var v=c.querySelector('.verdict'),need=c.dataset.ans.length;
+    if(b.classList.contains('check')){
+      var picked=[].slice.call(c.querySelectorAll('input:checked')).map(function(i){return i.value;});
+      if(picked.length!==need){v.className='verdict warn';v.textContent=need>1?'Select exactly '+need+' options.':'Select an option.';return;}
+      c.querySelectorAll('.opts li').forEach(function(li){li.classList.toggle('picked',picked.indexOf(li.dataset.k)>-1);});
+      var good=picked.slice().sort().join('')===c.dataset.ans;
+      c.classList.add('done','checked');c.dataset.res=good?'1':'0';
+      v.className='verdict '+(good?'good':'bad');v.textContent=good?'Correct':'Incorrect - correct: '+c.dataset.ans.split('').join(', ');
+      score(c.closest('.panel'));
+    }else if(b.classList.contains('reveal')){
+      c.classList.add('done');
+    }else if(b.classList.contains('reset')){
+      stop();c.classList.remove('done','checked');delete c.dataset.res;
+      c.querySelectorAll('input').forEach(function(i){i.checked=false;});
+      c.querySelectorAll('.picked').forEach(function(li){li.classList.remove('picked');});
+      v.className='verdict';v.textContent='';
+      if(rAll.checked)c.classList.add('done');
+      score(c.closest('.panel'));
+    }else if(b.classList.contains('play')){
+      if(!synth){b.textContent='Speech not supported in this browser';return;}
+      if(st&&st.card===c){if(st.paused){st.paused=false;speakFrom(st);}else pause();return;}
+      stop();
+      st={card:c,idx:0,paused:false,parts:[].map.call(c.querySelectorAll('.speech-text span'),function(sp){return sp.textContent;})};
+      speakFrom(st);
+    }else if(b.classList.contains('stop')){
+      stop();
+    }
+  });
+  window.addEventListener('beforeunload',stop);
+  var h=location.hash.slice(1),m=/^q(\d+)$/.exec(h);
+  if(m){var t=document.getElementById(h);if(t){show(t.closest('.panel').id,true);t.scrollIntoView();}}
+  else show(h||'ov',true);
+})();
+</script>
+</body>
+</html>
