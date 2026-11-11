@@ -21,6 +21,6 @@ Full Guide feature:
 19. Portable, self-contained HTML format — open the guide in a compatible browser without installing a separate application.
 20. Original practice wording, reviewed against AWS documentation — study technical concepts through independently written educational scenarios.
 21. All questions are prepared and verified by the senior cloud experts.
-22. If you have any comments on the questions and to purchase a copy of full version of 200 fresh questions at a nominal price of INR 499 only, please contact: awssaac03guide@gmail.com
+22. If you have any comments on the questions and to purchase a copy of full version of 200 AWS SAA C03 exam questions at a nominal price of INR 499 only, please contact: awssaac03guide@gmail.com
 
 Note: Please do not make any changes to the code else it will not work as expected. We will soon provide the pdf version of it
