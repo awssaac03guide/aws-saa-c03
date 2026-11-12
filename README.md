@@ -28,15 +28,3 @@ Note: Please do not make any changes to the code else it will not work as expect
 **How to download :**
 Click on the html file and download it as raw.
 <img width="1520" height="359" alt="image" src="https://github.com/user-attachments/assets/6760b80b-c095-45e4-ae13-117e7e13adad" />
-
-1) Open the file in the repository list.
-
-2) Click the “Raw” button at the top of the file preview (next to “Edit”).
-
-   - This shows the file in its pure form, without GitHub’s HTML wrapper
-
-3) Right‑click the page and choose Save As…
-
-4) In the “Save as type” dropdown, select All files (not HTML only) so the .html extension is preserved.
-
-   Save the file to your local machine.
