@@ -7,7 +7,7 @@ What you will get in full Guide:
 5. Practical, constraint-driven scenarios — weigh security, availability, performance, cost and operational effort before selecting a solution.
 6. Plausible, near-miss distractors — learn to distinguish between an AWS service that could work and the architecture that best meets the requirements.
 7. Detailed answer explanations — understand why the correct answer fits and why every alternative falls short.
-8. Short spoken explanations for every question — reinforce your understanding with approximately 45-second audio walkthroughs.
+8. Short spoken explanations for every question — reinforce your understanding with approximately ~ 45 seconds audio walkthroughs.
 9. Play, Pause, Resume and Stop controls — listen at your own pace and revisit difficult explanations.
 10. A question-review technique for every scenario — develop a repeatable approach to identifying requirements and eliminating distractors.
 11. Highlighted keywords and decision clues — recognise the details that determine the answer without relying on simplistic keyword matching.
