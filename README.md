@@ -1,3 +1,6 @@
+**Disclaimer: 
+All questions and answers are thoroughly crafted for AWS Certified Solutions Architect Associate exam ONLY. Users and organizations should independently validate all details before applying any of the solutions from this guide in their production environments.**
+
 What you will get in full Guide:
 ====================================================================================================================================
 1. AWS Certified Solutions Architect Associate SAA-C03 Scenario Practice Guide — 200 Questions
