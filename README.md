@@ -2,7 +2,7 @@ How to download :
 Click on the html file and download it as raw.
 <img width="1520" height="359" alt="image" src="https://github.com/user-attachments/assets/6760b80b-c095-45e4-ae13-117e7e13adad" />
 
-Full Guide feature:
+What you will get in full Guide:
 ====================================================================================================================================
 1. AWS SAA-C03 Scenario Practice Guide — 200 Questions
 2. 200 challenging, scenario-based questions — practise solving realistic architecture problems, not just recalling service definitions.
