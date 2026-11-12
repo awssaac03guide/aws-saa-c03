@@ -1,6 +1,6 @@
 What you will get in full Guide:
 ====================================================================================================================================
-1. AWS SAA-C03 Scenario Practice Guide — 200 Questions
+1. AWS Certified Solutions Architect Associate SAA-C03 Scenario Practice Guide — 200 Questions
 2. 200 challenging, scenario-based questions — practice solving realistic architecture problems, not just recalling service definitions.
 3. 140 single-answer and 60 choose-two questions — build confidence with both question formats; multiple-response questions make up 30% of the set.
 4. Coverage across all four SAA-C03 domains — 60 Secure Architecture, 52 Resilient Architecture, 48 High-Performing Architecture and 40 Cost-Optimized Architecture questions.
